@@ -8,7 +8,7 @@ let selectedDestinationCityNumber;
 
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get('user_id');
-//sessionStorage.setItem('user_id', userId);
+sessionStorage.setItem('user_id', userId);
 
 function handleInput(inputElement, list, input_value, otherList) {
   clearTimeout(filterTimeout);
@@ -65,11 +65,11 @@ function displayAllItems(list, display_items, input_value, inputElement) {
       if (list === departureCityList) {
         departure_from_list = true;
         selectedDepartureCityNumber = cityNumber.trim();
-        //sessionStorage.setItem('selectedDepartureCityNumber', selectedDepartureCityNumber);
+        sessionStorage.setItem('selectedDepartureCityNumber', selectedDepartureCityNumber);
       } else if (list === destinationCityList) {
         destination_from_list = true;
         selectedDestinationCityNumber = cityNumber.trim();
-        //sessionStorage.setItem('selectedDestinationCityNumber', selectedDestinationCityNumber);
+        sessionStorage.setItem('selectedDestinationCityNumber', selectedDestinationCityNumber);
       }
     });
     list.appendChild(li);
@@ -148,11 +148,11 @@ function saveInputValues() {
     destinationCity: document.getElementById('destination_city').value
   };
 
-  //sessionStorage.setItem('inputValues', JSON.stringify(inputValues));
+  sessionStorage.setItem('inputValues', JSON.stringify(inputValues));
 }
 
 function restoreInputValues() {
-  //const savedValues = sessionStorage.getItem('inputValues');
+  const savedValues = sessionStorage.getItem('inputValues');
   if (savedValues) 
   {
     const inputValues = JSON.parse(savedValues);
@@ -209,16 +209,16 @@ function validate_inputs_value() {
       }
     }
   }
-  //if (document.getElementById('departure_city').value === sessionStorage.getItem('from_location'))
-  //{
-  //  departure_from_list = true;
-  //  selectedDepartureCityNumber = sessionStorage.getItem('selectedDepartureCityNumber');
-  //}
-  //if (document.getElementById('destination_city').value == sessionStorage.getItem('to_location'))
-  //{
-  //  destination_from_list = true;
-  //  selectedDestinationCityNumber = sessionStorage.getItem('selectedDestinationCityNumber');
-  //}
+  if (document.getElementById('departure_city').value === sessionStorage.getItem('from_location'))
+  {
+    departure_from_list = true;
+    selectedDepartureCityNumber = sessionStorage.getItem('selectedDepartureCityNumber');
+  }
+  if (document.getElementById('destination_city').value == sessionStorage.getItem('to_location'))
+  {
+    destination_from_list = true;
+    selectedDestinationCityNumber = sessionStorage.getItem('selectedDestinationCityNumber');
+  }
   if (any_inputs_empty) {
     return true;
   } else if (!destination_from_list) {
@@ -258,9 +258,9 @@ function validate_inputs_value() {
       ]
     };
     console.log(data)
-    //sessionStorage.setItem('myData', JSON.stringify(data));
-    //sessionStorage.setItem('from_location', document.getElementById('departure_city').value);
-    //sessionStorage.setItem('to_location', document.getElementById('destination_city').value);
+    sessionStorage.setItem('myData', JSON.stringify(data));
+    sessionStorage.setItem('from_location', document.getElementById('departure_city').value);
+    sessionStorage.setItem('to_location', document.getElementById('destination_city').value);
     saveInputValues();
     window.location.href = '/invoice_calculation/type_of_delivery';
   }
